@@ -29,6 +29,45 @@ ant2.penup()
 ant2.speed(1)
 ant2.shapesize(1)
 
+
+# Add a name label above ant2
+name_label = turtle.Turtle()
+name_label.hideturtle()
+name_label.color("white")
+name_font = ("Arial", 12, "normal") # Customize the font for the name label
+
+def update_name_label():
+    name_label.clear()
+    name_label.penup()
+    name_label.goto(ant2.xcor(), ant2.ycor() + 20)  # Position the name label above ant2
+    name_label.write("Ant 2", align="center", font=name_font)
+    name_label.hideturtle()
+    screen.update()
+
+# Call the function to update the name label
+update_name_label()
+
+# Update the name label position when ant2 moves
+def move_up():
+    y = ant2.ycor()
+    ant2.sety(y + 10)
+    update_name_label()
+
+def move_down():
+    y = ant2.ycor()
+    ant2.sety(y - 10)
+    update_name_label()
+
+def move_left():
+    x = ant2.xcor()
+    ant2.setx(x - 10)
+    update_name_label()
+
+def move_right():
+    x = ant2.xcor()
+    ant2.setx(x + 10)
+    update_name_label()
+
 # create the food for the ants
 food = turtle.Turtle()
 food.shape("square")
@@ -96,6 +135,11 @@ def launch_reaper():
     reaper.shapesize(.3)
     reaper.showturtle
 
+    if screen.onkeypress(launch_reaper, "F2"):
+        reaper.clear()
+        screen.listen()
+        
+        
 #set up keyboard bindings for launching reaper triangle from ant2
 screen.onkeypress(launch_reaper, "F1")
 
@@ -136,3 +180,13 @@ while food_eaten1 < max_food or food_eaten2 < max_food:
     if food_eaten2 or food_eaten1 == max_food:
         print("Both ants have eaten enough food and have died.")
         break
+    # Define a function to handle player input
+def get_player_input():
+    player_input = screen.textinput("Chat", "Type your message:")  # Prompt the player for input
+    # Process the player's input here, such as displaying it on the screen or using it in the game logic
+
+# Set up keyboard binding for triggering the player input function
+screen.onkeypress(get_player_input, "t")  # Bind the "t" key to trigger player input
+
+# Listen for keyboard input
+screen.listen()
